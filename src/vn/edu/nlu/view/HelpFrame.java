@@ -1,23 +1,28 @@
 package vn.edu.nlu.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
+import vn.edu.nlu.model.ImageFactory;
 import vn.edu.nlu.view.panel.PanelHelp;
 
 
 public class HelpFrame extends JFrame{
-	
+	private ImageIcon iconBgHelp;
 	private PanelHelp panelHelp;
 	static final int WIDTH = 530, HEIGHT = 646;
 
 	public HelpFrame(int width, int height) {
-		// TODO Auto-generated method stub
+		
 		setTitle("Help");
 		setSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
@@ -28,13 +33,11 @@ public class HelpFrame extends JFrame{
 
 		//-------------- Panel Background Help -----------------
 		panelHelp = new PanelHelp();
-		
-		setContentPane(panelHelp);
+		setContentPane(new PanelBackground());
 		
 		
 		//----------------- Panel Content Help ----------------------
-		panelHelp = new PanelHelp();
-		panelHelp.getBtBack().addMouseListener(new handler());
+		panelHelp.getBtBack().addMouseListener(new MouseHandler());
 				
 				
 		layout.putConstraint(SpringLayout.SOUTH, panelHelp, 500, SpringLayout.SOUTH, this);
@@ -42,13 +45,23 @@ public class HelpFrame extends JFrame{
 		
 		add(panelHelp);
 		setLayout(layout);
+//		panelHelp.add(panelHelp);
 		setVisible(true);
 	}
 	
 	public HelpFrame() {
 		this(WIDTH, HEIGHT);
 	}
-	private class handler implements MouseListener{
+	
+	private class PanelBackground extends JPanel {
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(ImageFactory.createImageBackground().getImage(), 0, 0,getWidth(), getHeight(), null);
+		}
+	}
+	
+	private class MouseHandler implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent e) {

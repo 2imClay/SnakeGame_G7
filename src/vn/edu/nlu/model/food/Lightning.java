@@ -10,9 +10,6 @@ import vn.edu.nlu.model.ImageFactory;
 import vn.edu.nlu.model.Snake;
 
 public class Lightning extends Food{
-	private int speed = 0;
-	private int energyEating = 0;
-
 
 	public Lightning(int screenWidth, int screenHeight, int unit_size) {
 		super(screenWidth, screenHeight, unit_size);
@@ -21,22 +18,19 @@ public class Lightning extends Food{
 
 	@Override
 	public Snake eating(Snake snake) {
+		int speed = snake.getSpeed();
 		if((snake.getX()[0] == xFood) && (snake.getY()[0] == yFood)) {
 			//EDIT
-			speed += 50;
+			snake.setSpeed(speed + 50);;
 		    Timer timer = new Timer(5000, new ActionListener() {
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
-		        	speed -= 50;
+		        	snake.setSpeed(speed - 50);;
 		        }
 		    });
 		    
-
-		    
 		    timer.setRepeats(false);
 		    timer.start();
-			energyEating++;
-
 			randomFood();
 		}
 		return snake;
